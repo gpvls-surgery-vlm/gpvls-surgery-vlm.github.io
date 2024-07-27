@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="A general-purpose vision language model for surgery">
+  <meta name="keywords" content="Surgical VLM, Surgical Data Science, Medical NLP, Deep Learning, Surgical Language Model">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Surgical RT</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link rel="icon" href="./favicon.ico">
+
+  <meta property="og:site_name" content="GP-VLS: A general-purpose vision language model for surgery" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:title" content="GP-VLS: A general-purpose vision language model for surgery" />
+  <meta property="og:description" content="by Samuel Schmidgall, Joseph Cho, Cyril Zakka, and William Hiesinger at JHU & Stanford" />
+  <meta property="og:url" content="https://gpvls-surgery-vlm.github.io/" />
+  <meta property="og:image" content="https://gpvls-surgery-vlm.github.io/static/images/preview_srt.gif" />
+  <meta property="og:image:secure" content="https://gpvls-surgery-vlm.github.io/static/images/preview_srt.gif" />
+  <meta property="og:video" content="" />
+  <meta property="og:video:secure" content="" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+
+  <meta property="article:publisher" content="https://gpvls-surgery-vlm.github.io" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="GP-VLS: A general-purpose vision language model for surgery" />
+  <meta name="twitter:description" content="by Samuel Schmidgall, Joseph Cho, Cyril Zakka, and William Hiesinger at JHU & Stanford" />
+  <meta name="twitter:url" content="https://gpvls-surgery-vlm.github.io/" />
+  <meta name="twitter:image" content="https://gpvls-surgery-vlm.github.io/static/images/preview_srt.gif" />
+  <meta name="twitter:site" content="@SRSchmidgall" />
+  <meta name="twitter:card" content="player" />
+  <meta name="twitter:player" content="" />
+  <meta name="twitter:player:width" content="1280" />
+  <meta name="twitter:player:height" content="720" />
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-two-thirds is-centered has-text-centered">
+          <h1 class="title is-1 publication-title">GP-VLS:</h1>
+          <h2 class="subtitle is-2 publication-subtitle">A general-purpose vision language model for surgery</h2>
+          
+          <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px;">
+            <img src="./static/images/logo_stanford.jpg" alt="Johns Hopkins Logo" style="width: 50%;">
+            <img src="./static/images/logo_jh.JPG" alt="Secondary Logo" style="width: 40%;">
+          </div>
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://gpvls-surgery-vlm.github.io"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv Link. -->
+              <span class="link-block">
+                <a href="https://gpvls-surgery-vlm.github.io"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://gpvls-surgery-vlm.github.io" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><!-- <i class="fab fa-github"></i> Font Awesome fontawesome.com -->
+                  </span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-two-thirds has-text-centered">
+            <img src="resources/imgs/SurgeryVLM.png" alt="Descriptive text about the image" style="max-width: 100%; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <!-- Main column taking two-thirds of the page width -->
+      <div class="column is-two-thirds">
+        <h2 class="title is-2" style="text-align: center;">Authors</h2>
+        <!-- First Row with Four Authors -->
+        <div class="columns is-centered">
+          <div class="column is-3 has-text-centered">
+            <a href="https://samuelschmidgall.github.io/" target="_blank">
+              <img src="./static/images/sam.jpeg" alt="Samuel Schmidgall" style="width: 95%;">
+              <br>
+              <span style="font-weight: bold; font-size: 130%;">Samuel Schmidgall</span>
+            </a>
+          </div>
+          <div class="column is-3 has-text-centered">
+            <a href="https://x.com/joseph_cho1" target="_blank">
+              <img src="./static/images/joe.png" alt="Joseph Cho" style="width: 120%;">
+              <br>
+              <span style="font-weight: bold; font-size: 130%;">Joseph Cho</span>
+            </a>
+          </div>
+          <div class="column is-3 has-text-centered">
+            <a href="https://cyrilzakka.github.io/" target="_blank">
+              <img src="./static/images/cyril.jpeg" alt="Cyril Zakka" style="width: 98%;">
+              <br>
+              <span style="font-weight: bold; font-size: 130%;">Cyril Zakka</span>
+            </a>
+          </div>
+          <div class="column is-3 has-text-centered">
+            <a href="https://profiles.stanford.edu/william-hiesinger" target="_blank">
+              <img src="./static/images/will.jpeg" alt="William Hiesinger" style="width: 98%;">
+              <br>
+              <span style="font-weight: bold; font-size: 130%;">William Hiesinger</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-two-thirds">
+        <h2 class="title is-2">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Surgery requires comprehensive medical knowledge, visual assessment skills, and procedural expertise. While recent surgical AI models have focused on solving task-specific problems, there is a need for general-purpose systems that can understand surgical scenes and interact through natural language. This paper introduces GP-VLS, a general-purpose vision language model for surgery that integrates medical and surgical knowledge with visual scene understanding. For comprehensively evaluating general-purpose surgical models, we propose SurgiQual, which evaluates across medical and surgical knowledge benchmarks as well as surgical vision-language questions. To train GP-VLS, we develop six new datasets spanning medical knowledge, surgical textbooks, and vision-language pairs for tasks like phase recognition and tool identification. We show that GP-VLS significantly outperforms existing open- and closed-source models on surgical vision-language tasks, with 8-21\% improvements in accuracy across SurgiQual benchmarks. GP-VLS also demonstrates strong performance on medical and surgical knowledge tests compared to open-source alternatives. Overall, GP-VLS provides an open-source foundation for developing AI assistants to support surgeons across a wide range of tasks and scenarios.
+         
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Overview</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-two-thirds">
+        <div class="content has-text-justified">
+          <p>
+            In this work, we introduce a vision-language model (VLM) for surgery trained on a wide variety of data. Typical VLMs in surgery focus on task-specific objectives, such as classification. Our general-purpose surgical VLM is able to perform many different language and vision-language conditioned tasks. We consider training on text-only medical and surgical language data, as well as vision-language data for surgical scene understanding.
+          </p>
+          <!-- Example of how to insert an image -->
+          <img src="resources/imgs/SurgeryVLM.png" alt="Descriptive text about the image" style="max-width: 100%; height: auto;">
+          <!-- You can add more <img> tags as needed -->
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            Current measures of quality for surgical VLMs typically report accuracy on a single classification task (e.g. selecting the phase from five options given an image), where existing language models are taken and adapted with classification heads. One challenge that the field currently faces as a result of this is that there are also no existing measures of quality for general-purpose surgical VLMs. Toward this, we present a new benchmark, SurgiQual, which evaluates VLMs across a panel of different medical and surgical tasks.
+          </p>
+          <img src="resources/imgs/SurgLLM.png" alt="Descriptive text about the image" style="max-width: 100%; height: auto;">
+          <p>
+            In order to train a generalist surgical VLM, we introduce
+            datasets across three categories: (1) medical knowledge, (2)
+            surgical knowledge, and (3) surgical vision-language. We first aim to build a foundation of medical knowledge. Toward this, we use four instruction fine-tuning datasets: MedMCQA, MedQA, Medical Flashcards, and MedInstruct52k. We also propose two surgical QA datasets: SurgTextBook-QA and MedMCQA-Surgery. Finally, we propose five novel training sets for understanding surgical scenes based on four surgical datasets. These training sets cover a variety of tasks that are useful for surgery, including recognizing surgical action, phase, triplet tool-action pairs,
+            and tool location. These also include a training set which asks
+            advanced surgical scene questions.
+          </p>
+          <!-- Example of how to insert an image -->
+          <img src="resources/imgs/table.png" alt="Descriptive text about the image" style="max-width: 100%; height: auto;">
+          <!-- You can add more <img> tags as needed -->
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            For the text-based benchmarks, MedQA and MedMCQASurgery, GPT-4 is the highest performing model on MedQA
+            in the literature. This is also reflected in our results, with
+            GPT-4 obtaining an accuracy of 86.1% and GPT-4o with
+            80.5%. Our model, GP-VLS, obtains the second highest performance on both datasets at 46.1% (on MedQA) and 52.8%
+            (on MedMCQA-Surgery). The lowest performing models
+            are the four open-source models in the following order for
+            MedQA and MedMCQA-Surgery respectively: prism-clip+7b
+            (32.3% and 33.1%), dinosiglip+7b (34.2% and 36.0%), prismclip+13b (34.6% and 37.9%), and dinosiglip+13b (34.3% and
+            36.3%).
+            For the surgical vision-language benchmarks, GP-VLS
+            clearly outperforms open- and closed-source models for each
+            category. GP-VLS obtains the following percentage improvements over the best model for each category: phase recognition (+8.2%), triplet recognition (+20.7%), tool recognition
+            (+14.5%), and action recognition (+16.9%). For phase and
+            tool recognition, GPT-4 Omni and GPT-4 were the highest
+            performing models whereas for triplet and action recognition,
+            dinosiglip+7b and prism-clip+7b were the highest performing
+            respectively. Overall, there was not a clear pattern between
+            which models were performing the best on each task outside
+            of GP-VLS having the highest accuracy
+
+          </p>
+          <!-- Example of how to insert an image -->
+          <img src="resources/imgs/nums.png" alt="Descriptive text about the image" style="max-width: 100%; height: auto;">
+          <!-- You can add more <img> tags as needed -->
+          We also note that other surgical models obtain zero percent accuracy on these benchmarks due to having architectures
+          which only output classification labels instead of text, or having a rigidly defined set of possible text outputs (see the model table).
+          We were unable to test these models due to the model weights
+          not being open-sourced, limiting reproducibility.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-two-thirds">
+        <h2 class="title is-2">Acknowledgements</h2>
+        <div class="content has-text-justified">
+          <p>
+            
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="section" id="BibTeX">
+  <div class="container content">
+    <h2 class="titile">BibTeX</h2>
+    <pre><code>@inproceedings{schmidgall2024gpvls,
+  author    = {Samuel Schmidgall and Joseph Cho and Cyril Zakka and William Hiesinger},
+  title     = {GP-VLS: A general-purpose vision language model for surgery},
+  year      = {2024},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>Page template borrowed from <a href="https://nerfies.github.io/"><span class="dnerf">Nerfies</span></a>, 
+        <a href="https://robot-parkour.github.io/"><span class="dnerf">Robot-Parkour</span></a>, <a href="https://mobile-aloha.github.io/"><span class="dnerf">Mobile-Aloha</span></a>, and <a href="https://surgical-robot-transformer.github.io/"><span class="dnerf">Surgical-Robot-Transformer</span></a>,.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
